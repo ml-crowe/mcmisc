@@ -1,0 +1,26 @@
+Package: mcmisc
+Title: Michael Miscellaneous Functions
+Version: 0.0.0.9000
+Date: 5/7/2025
+Imports:
+    dplyr,
+    ggplot2,
+    tidyr,
+    purrr,
+    stringr,
+    lubridate,
+    magrittr,
+    rlang,
+    stats,
+    methods
+Authors@R: 
+    person("Michael", "Crowe", , "michael.l.crowe@gmail.com", role = c("aut", "cre"))
+Description: Contains various functions for data manipulation and analysis. 
+    Some written by the author, some collected from other sources and some a combination of the two.
+    This package is a work in progress and will be updated with new functions
+    as needed. The goal is to provide a collection of useful functions that
+    can be used in various data analysis tasks.
+License: `use_gpl3_license()`
+Encoding: UTF-8
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.3.2
