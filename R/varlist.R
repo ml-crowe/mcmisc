@@ -10,15 +10,17 @@
 #' @export
 #' @examples
 #' varlist("hsns", exclude="5|oj")
-# identifies all variable names that include 'hsns' but excludes those that have a 5 or "oj".
-# Pipe key "|" is the "or" operator; other operators (i.e,. "&") can also be used.
+#' # identifies all variable names that include 'hsns' but excludes those that have a 5 or "oj".
+#' # Pipe key "|" is the "or" operator; other operators (i.e,. "&") can also be used.
 #'
 #' varlist(type="factor",exclude=c("gb|^c"))
-# all factor variable except variable gb and variables starting with c
+#' # all factor variable except variable gb and variables starting with c.
+#'
 #' varlist(pattern="neo[1-9]", df = data)
-# All variables in dataframe labeled "data" that start with neo followed by any number (e.g., 'neo1','neo2', etc.)
+#' # all variables in dataframe labeled "data" that start with neo followed by any number (e.g., 'neo1','neo2', etc.).
+#'
 #' sapply(df[,varlist(type="numeric",pattern="credit")], summary)
-# Can use in conjunction with sapply
+#' # can use in conjunction with sapply.
 varlist <- function (pattern = NULL, df = NULL, exclude = NULL,
                      type = c("numeric", "factor", "character", "double", "logical", "integer"),
                      ignore.case = TRUE) {
