@@ -1,4 +1,4 @@
-#' Search a dataframe for variable names matching a pattern
+#' Search a dataframe for variable names matching a pattern.
 #'
 #' @param pattern character string in regular expression format.
 #' @param df dataframe object, if left as NULL it assumes the dataframe is labeled "df".

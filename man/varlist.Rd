@@ -2,7 +2,7 @@
 % Please edit documentation in R/varlist.R
 \name{varlist}
 \alias{varlist}
-\title{Search a dataframe for variable names matching a pattern}
+\title{Search a dataframe for variable names matching a pattern.}
 \usage{
 varlist(
   pattern = NULL,
@@ -27,7 +27,7 @@ varlist(
 character vector of variable names found within selected dataframe.
 }
 \description{
-Search a dataframe for variable names matching a pattern
+Search a dataframe for variable names matching a pattern.
 }
 \examples{
 varlist("hsns", exclude="5|oj")
