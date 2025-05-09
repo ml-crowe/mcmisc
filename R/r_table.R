@@ -4,9 +4,9 @@
 # }
 p_from_z <- function(z, two_tail = T){
   if(two_tail == T){
-    2*pnorm(abs(.5), lower.tail = F)
+    2*pnorm(abs(z), lower.tail = F)
   }else{
-    pnorm(abs(.5), lower.tail = F)
+    pnorm(abs(z), lower.tail = F)
   }
 }
 
@@ -47,6 +47,7 @@ format_num <- function(val, digits = 2) {
 #' @param round Integer. Number of decimal places for displayed correlations (default 2).
 #' @param use_for_hetcor Passed to `polycor::hetcor`'s `use` argument when `type = "mixed"`.
 #'        Default is "pairwise.complete.obs". For `Hmisc::rcorr`, handling is internal.
+#' @param ... other inputs for `Hmisc::rcorr` or `polycor::hetcor`.
 #'
 #' @return A list with the following components:
 #'   \item{formatted_table}{The formatted correlation matrix with flags and Ns on diagonal (if applicable).}
@@ -83,7 +84,8 @@ r_table <- function(data,
                     flag = TRUE,
                     strict = FALSE,
                     round = 2,
-                    use_for_hetcor = "pairwise.complete.obs") {
+                    use_for_hetcor = "pairwise.complete.obs",
+                    ...) {
 
   if (!is.data.frame(data)) {
     data <- as.data.frame(data)
@@ -144,7 +146,7 @@ r_table <- function(data,
 
 
     hc_results <- tryCatch({
-      polycor::hetcor(data_subset_cor, use = use_for_hetcor, std.err = TRUE)
+      polycor::hetcor(data_subset_cor, use = use_for_hetcor, std.err = TRUE, ...)
     }, error = function(e) {
       stop(paste("polycor::hetcor failed. Error:", e$message,
                  "\nThis can happen with insufficient data, constant variables, or single-level factors after NA removal for a pair."), call. = FALSE)
@@ -160,6 +162,11 @@ r_table <- function(data,
     # Suppress warnings for NaNs produced by 0/0 if SE is 0 and R is 0
     z_values_full[is.nan(z_values_full)] <- 0
     Rmat_P_full <- p_from_z(z_values_full, two_tail = TRUE)
+
+    # Ensure matrix dimensions if only one var in row_vars or col_vars
+    if (!is.matrix(Rmat_r_full) | is.null(dimnames(Rmat_r_full))) Rmat_r_full <- matrix(Rmat_r_full, nrow = length(row_vars), ncol = length(col_vars), dimnames = list(row_vars, col_vars))
+    if (!is.matrix(Rmat_P_full) | is.null(dimnames(Rmat_P_full))) Rmat_P_full <- matrix(Rmat_P_full, nrow = length(row_vars), ncol = length(col_vars), dimnames = list(row_vars, col_vars))
+    if (!is.matrix(Rmat_n_full) | is.null(dimnames(Rmat_n_full))) Rmat_n_full <- matrix(Rmat_n_full, nrow = length(row_vars), ncol = length(col_vars), dimnames = list(row_vars, col_vars))
 
     # Subset to the desired row_vars and col_vars
     Rmat_r <- Rmat_r_full[row_vars, col_vars, drop = FALSE]
@@ -179,7 +186,7 @@ r_table <- function(data,
       stop("At least two variables are needed for a correlation.")
     }
 
-    rcorr_result <- Hmisc::rcorr(data_x, type = type)
+    rcorr_result <- Hmisc::rcorr(data_x, type = type, ...)
     Rmat_r_full <- rcorr_result$r
     Rmat_P_full <- rcorr_result$P
     Rmat_n_full <- rcorr_result$n

@@ -12,7 +12,8 @@ r_table(
   flag = TRUE,
   strict = FALSE,
   round = 2,
-  use_for_hetcor = "pairwise.complete.obs"
+  use_for_hetcor = "pairwise.complete.obs",
+  ...
 )
 }
 \arguments{
@@ -41,6 +42,8 @@ and "'" for p < .10.}
 
 \item{use_for_hetcor}{Passed to \code{polycor::hetcor}'s \code{use} argument when \code{type = "mixed"}.
 Default is "pairwise.complete.obs". For \code{Hmisc::rcorr}, handling is internal.}
+
+\item{...}{other inputs for \code{Hmisc::rcorr} or \code{polycor::hetcor}.}
 }
 \value{
 A list with the following components:
