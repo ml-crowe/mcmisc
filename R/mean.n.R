@@ -23,7 +23,7 @@
 #' mean.n(df, n = 1)
 #' #> [1] 2 3 NA 4
 #'
-#' @export
+#' @export mean.n
 mean.n <- function(df, n) {
   means <- apply(as.matrix(df), 1, mean, na.rm = TRUE)
   notvalid <- apply(as.matrix(df), 1, function(row) sum(is.na(row)))
