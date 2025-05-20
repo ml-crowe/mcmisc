@@ -26,7 +26,7 @@
 #' sums <- with_progress_parallel(FUN = function(x, y) x + y, a, b, future_mode = "mapply")
 #'
 #' @import future.apply
-#' @importFrom future plan
+#' @import future
 #' @importFrom progressr handlers handler_progress with_progress progressor
 #' @importFrom parallelly availableCores
 #' @importFrom beepr beep
